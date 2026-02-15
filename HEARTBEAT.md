@@ -33,28 +33,39 @@
 
 **As Coordinator, I manage all Asana projects:**
 
-### Each Project Needs:
+### Each Project MUST Have:
+- [ ] **Sections/Epics** - Feature groups (not just flat tasks)
 - [ ] **PRD** - Product Requirements Document
-- [ ] **Features** - Major capability areas
-- [ ] **Tasks** - Specific implementation items
+- [ ] **Tasks** - Specific implementation items in proper sections
 - [ ] **Status** - Up to date
 
 ### Project Structure in Asana:
 ```
 Project (e.g., RedditAutoMarket)
-├── Epic/Feature 1
-│   ├── Task: Implementation item
-│   └── Task: Implementation item
-├── Epic/Feature 2  
-│   └── Task: Implementation item
-└── Bug/Technical Debt
+├── Section: Account Management
+│   ├── Task: OAuth flow
+│   └── Task: Token refresh
+├── Section: Campaign Management
+│   ├── Task: Create campaign
+│   └── Task: Edit campaign
+├── Section: AI Generation
+│   └── Task: Comment generation
+└── Section: Automation
+    └── Task: Cron worker
 ```
 
-### Update Every Heartbeat:
-1. Review each project's task completeness
-2. Add missing features/tasks
-3. Update progress comments
-4. Ensure PRD is reflected in tasks
+### Every Heartbeat: RECONCILE
+1. List all projects
+2. Check each has proper sections
+3. Ensure tasks are in sections
+4. Add missing tasks from PRDs
+5. Update progress comments
+6. Check for blockers
+
+### Before Creating New Projects:
+1. Verify existing projects have proper epics/sections
+2. Reconcile status with what was built
+3. QA review completed features
 
 ---
 
@@ -175,3 +186,47 @@ DISCOVER → TRIAGE → ASANA → RALPH LOOP → COMPLETE
 ---
 
 *24/7. Always working. Always shipping. Always managing.*
+
+---
+
+## Concurrency & Coordination Rules
+
+### Agent Concurrency (REQUIRED)
+- **Only 1 agent per task** - Never assign 2 agents to same task
+- Check active sessions before spawning new agents
+- Use clear labels for each agent task
+- Log what agents are working on in Discord
+
+### Asana-Git Integration (REQUIRED)
+- **Every commit MUST reference an Asana task**
+- Commit format: `[TASK-ID] Brief description`
+- Example: `git commit -m "[WATCH-001] Add multi-agent support"`
+- Branch naming: `task/TASK-ID/description`
+
+### Workflow
+1. Pick task from Asana
+2. Create branch: `task/ASANA-TASK-ID/description`
+3. Work and commit with TASK-ID prefix
+4. PR/Merge references Asana task
+5. Mark Asana task complete after merge
+
+### Task Status Sync
+- Asana = Source of truth for task status
+- Git = Source of truth for code
+- Keep them in sync at all times
+
+---
+
+## BLOCKED TASK PROTOCOL
+
+**If you don't have specs:**
+1. Stop working
+2. Post in Discord: "BLOCKED: Need [specific info] for [task name]"
+3. List exactly what you need
+
+**If you're stuck on something:**
+1. Try for 5 min max
+2. Post in Discord: "BLOCKED: [reason] - need [what you tried / what you need]"
+3. Move to next task if possible
+
+**NEVER:** Fake progress, fabricate numbers, or pretend you're working when blocked

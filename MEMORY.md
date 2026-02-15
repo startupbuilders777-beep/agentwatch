@@ -74,3 +74,12 @@
 ---
 
 *Updated: 2026-02-15*
+
+---
+
+## Agent Rules
+
+- **Concurrency:** Only 1 agent per task. Check sessions_list before spawning.
+- **Asana-Git:** Every commit must reference Asana task with `[TASK-ID]` prefix
+- **Blocking:** Always tell Harry when blocked + what you need
+
