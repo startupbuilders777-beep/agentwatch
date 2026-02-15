@@ -1,0 +1,15 @@
+{
+  "projects": [
+    {"id": "agentwatch", "name": "AgentWatch", "folder": "projects/agentwatch", "status": "active", "type": "saas"},
+    {"id": "nexusai", "name": "NexusAI", "folder": "projects/nexus-ai", "status": "active", "type": "saas"},
+    {"id": "whop-course", "name": "Whop Course", "folder": "projects/whop-course-ai-automation", "status": "completed", "type": "course"},
+    {"id": "reddit-market", "name": "RedditAutoMarket", "folder": "projects/reddit-marketing-tool", "status": "completed", "type": "saas"},
+    {"id": "sample-agentwatch-lite", "name": "Sample: AgentWatch Lite", "folder": "sample-apps/agentwatch-lite", "status": "in_progress", "type": "sample"},
+    {"id": "sample-openclaw-lite", "name": "Sample: OpenClaw Lite", "folder": "sample-apps/openclaw-lite", "status": "in_progress", "type": "sample"},
+    {"id": "sample-agentcloud", "name": "Sample: AgentCloud IAAS", "folder": "sample-apps/agentcloud", "status": "in_progress", "type": "sample"}
+  ],
+  "tickets": [],
+  "sprints": [
+    {"id": "sprint-1", "name": "Build Sample Apps", "goal": "Build 3 sample Next.js apps to demo concepts", "status": "active"}
+  ]
+}
