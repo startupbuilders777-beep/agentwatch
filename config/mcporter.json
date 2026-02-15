@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "asana": {
+      "command": "tiny-asana-mcp-server",
+      "env": {
+        "ASANA_TOKEN": "2/1213287152205467/1213287139030185:70bce90f612d0ea072617e4dc8686bcd"
+      }
+    }
+  },
+  "imports": []
+}
