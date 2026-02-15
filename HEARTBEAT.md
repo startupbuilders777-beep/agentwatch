@@ -4,7 +4,28 @@
 - **Coordinator:** Killer (main agent)
 - **Task System:** Asana (Jira-style tickets)
 - **Communication:** Discord channels
-- **Goal:** Continuous work without waiting for prompts
+- **Goal:** 24/7 continuous work
+
+---
+
+## 0. Scout for Opportunities (Every Heartbeat!)
+
+**Always be scouting for new projects:**
+
+1. **Web Research** (use browser tool)
+   - Search for AI automation trends
+   - Find pain points in SMB market
+   - Discover competitor gaps
+   - Look for viral products
+
+2. **Add to #ideas channel**
+   - Post discoveries to #ideas
+   - Tag as opportunity
+
+3. **Create Asana tasks**
+   - If opportunity is solid → create task in appropriate project
+   - Break into subtasks
+   - Set priority
 
 ---
 
@@ -16,89 +37,56 @@
 
 ### Asana Quick Scan
 ```bash
-# Get tasks assigned to me that are due soon
-curl -s -H "Authorization: Bearer $ASANA_TOKEN" \
-  "https://app.asana.com/api/1.0/tasks?assignee=me&status=in_progress"
+TOKEN="2/1213287152205467/1213287139030185:70bce90f612d0ea072617e4dc8686bcd"
+
+# Get incomplete tasks
+curl -s -H "Authorization: Bearer $TOKEN" \
+  "https://app.asana.com/api/1.0/tasks?assignee=me&completed=false"
 ```
 
 **If urgent:** Handle immediately, then continue.
 
 ---
 
-## 2. Work Mode (use remaining time)
+## 2. Work Mode (Ralph Loop)
 
-### Step 1: Pull from Asana
-1. Query Asana for unassigned tasks in active projects
-2. Pick highest-priority task you can do
-3. Assign it to yourself
-4. Set status to "In Progress"
+### Ralph Loop Steps
 
-### Step 2: Do the Work
-- Execute the task (build, review, deploy)
-- Write code, run tests, whatever the task needs
-- Document progress in task comments
+1. **Pick task from Asana** - highest priority, unassigned
+2. **Break into subtasks** - if large, create Asana checklist items
+3. **Execute subtask** - do the work
+4. **Validate** - does it work? does it meet spec?
+5. **Complete or Continue**
+   - ✅ Complete → mark done in Asana, add completion comment
+   - ⏳ Incomplete → add progress comment, save context, spawn new session
 
-### Step 3: Update Asana
-- Set status to "Completed" when done
-- Add completion comment with what was done
-- Note any follow-up tasks discovered
+### Task Execution Rules
+
+- **Create as many tasks as possible** - More tasks = more parallel work
+- **Break big tasks into small ones** - Easier to complete
+- **Always validate** - Don't just write code, test it
+- **Update Asana constantly** - It's the source of truth
+- **Never leave stale** - Complete or update progress every heartbeat
 
 ---
 
-## 3. Asana Verification (Part of Every Heartbeat)
+## 3. Asana Verification (Every Heartbeat)
 
-### Every Heartbeat: Verify & Update Tickets
+### Verify & Update All Tickets
 
-1. **List all projects in Asana**
-2. **Check each project for tasks**
-3. **Update incomplete tasks** with current progress
-4. **Add context** if things have changed
-
-```bash
-# ASANA_TOKEN set in credentials
-TOKEN="2/1213287152205467/1213287139030185:70bce90f612d0ea072617e4dc8686bcd"
-
-#  projects
-curl -s -H "Authorization: Bearer1. Get all $TOKEN" \
-  "https://app.asana.com/api/1.0/workspaces/1213287151552231/projects"
-
-# 2. For each project, get tasks
-# AgentWatch: 1213277278397665
-# NexusAI: 1213277068607518  
-# Whop Course: 1213287173636195
-# RedditAutoMarket: 1213287173640360
-
-# 3. Update incomplete tasks with comments if they have no recent activity
-```
+1. List all projects in Asana
+2. Check each for incomplete tasks
+3. Update stale tasks with progress comments
+4. Add context if scope changed
 
 ### Jira-Style Ticket Format
 
-Each task should have:
+Every task MUST have:
 - **Name**: Clear, actionable title
-- **Description**: 
-  - Context (why this matters)
-  - Acceptance criteria (what done looks like)
-  - Technical notes if relevant
-- **Assignee**: Who working on it
-- **Due Date**: When needed
+- **Description**: Context + Acceptance Criteria + Technical Notes
+- **Assignee**: Who working (or unassigned)
+- **Due Date**: For time-sensitive
 - **Status**: Not Started → In Progress → Completed
-
-**Example:**
-```
-Task: Set up agent monitoring dashboard
-Description:
-- Context: Users need to see their agent status in real-time
-- Acceptance: Dashboard shows agent name, status, uptime, last activity
-- Tech: Next.js + Prisma + WebSocket for real-time
-Due: 2026-02-20
-```
-
-### Updating Incomplete Tasks
-
-If task not complete:
-1. Add comment with progress: "Still working on X. Currently at Y."
-2. Note blockers if any
-3. Update description if scope changed
 
 ---
 
@@ -107,16 +95,15 @@ If task not complete:
 ### Log Progress
 - Update daily memory: `memory/YYYY-MM-DD.md`
 - Note what was accomplished
-- Note blockers encountered
 
 ### If Task Incomplete
-- Write detailed progress comment in Asana
+- Write detailed progress in Asana comment
 - Note what remains to be done
-- Set appropriate status
+- Save context to file if complex
 
 ---
 
-## 5. GitHub Sync (End of Heartbeat)
+## 5. GitHub Sync
 
 ```bash
 cd /home/ubuntu/.openclaw/workspace
@@ -125,45 +112,56 @@ git commit -m "Heartbeat sync: $(date)"
 git push origin main
 ```
 
-**Repo:** https://github.com/startupbuilders777-beep/openclaw-setup
+---
+
+## Asana Projects
+
+| Project | GID |
+|---------|-----|
+| AgentWatch | 1213277278397665 |
+| NexusAI | 1213277068607518 |
+| Whop Course | 1213287173636195 |
+| RedditAutoMarket | 1213287173640360 |
 
 ---
 
-## Asana Projects (Source of Truth)
-
-| Project | GID | Status |
-|---------|-----|--------|
-| AgentWatch | 1213277278397665 | Active |
-| NexusAI | 1213277068607518 | Active |
-| Whop Course | 1213287173636195 | Active |
-| RedditAutoMarket | 1213287173640360 | Active |
-
----
-
-## Process Flow (from process/)
+## Process Flow
 
 ```
-DISCOVER → TRIAGE → ASANA → EXECUTE → COMPLETE
-    ↑                                      ↓
-    └──────────────────────────────────────┘
+DISCOVER → TRIAGE → ASANA → RALPH LOOP → COMPLETE
+    ↑                                          ↓
+    └──────────────────────────────────────────┘
 ```
 
-1. **Discover** - Ideas in #ideas channel
-2. **Triage** - Killer creates Asana tickets
-3. **Asana** - Tasks live here (Jira-style)
-4. **Execute** - Agent picks up, works, updates
-5. **Complete** - Mark done, log learnings
+1. **Discover** - Scout opportunities, post to #ideas
+2. **Triage** - Evaluate, prioritize
+3. **Asana** - Create Jira-style tasks
+4. **Ralph Loop** - Execute, validate, complete
+5. **Complete** - Mark done, sync GitHub
 
 ---
 
 ## Anti-Patterns
 
-❌ **HEARTBEAT_OK** — Don't just say ok, do work
-❌ **Ignore Asana** — Task queue IS Asana, check it
-❌ **Skip logging** — Memory is built from these moments
-❌ **Solo everything** — Spawn sub-agents when needed
-❌ **Stale tickets** — Update Asana every heartbeat
+❌ **HEARTBEAT_OK** — Never just say ok, do work
+❌ **Ignore Asana** — Task queue IS Asana
+❌ **Skip scouting** — Always look for opportunities
+❌ **Leave stale tasks** — Update or complete
+❌ **Solo everything** — Spawn agents for parallel work
+❌ **No validation** — Test your code
 
 ---
 
-*Work doesn't wait for prompts. Neither do we.*
+## Tools Available
+
+| Tool | Purpose |
+|------|---------|
+| browser | Web research, scouting |
+| exec | Run commands, build |
+| Asana API | Task management |
+| Discord | Communication |
+| sessions_spawn | Parallel work |
+
+---
+
+*24/7. Always working. Always scouting. Always shipping.*
