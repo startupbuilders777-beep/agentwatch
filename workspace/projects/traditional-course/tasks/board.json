@@ -1,0 +1,77 @@
+{
+  "project": "Traditional Course - AI for Beginners",
+  "status": "completed",
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Create Full Course Outline (5 Modules)",
+      "status": "completed",
+      "notes": "Outline created with beginner-friendly topics"
+    },
+    {
+      "id": "2",
+      "title": "Create Video Script - Module 1 (What is AI?)",
+      "status": "completed",
+      "notes": "Plain English, warm tone, no jargon - 8-10 min video script"
+    },
+    {
+      "id": "3",
+      "title": "Create Video Script - Module 2 (ChatGPT Basics)",
+      "status": "completed",
+      "notes": "Step-by-step with 11 screenshot descriptions - 12-15 min video script"
+    },
+    {
+      "id": "4",
+      "title": "Create Marketing Copy",
+      "status": "completed",
+      "notes": "Targeted at 55+ demographic - multiple ad versions, email templates, testimonials"
+    },
+    {
+      "id": "5",
+      "title": "Create Landing Page Concept",
+      "status": "completed",
+      "notes": "Simple, clear design with mobile-first approach, accessibility considerations"
+    },
+    {
+      "id": "6",
+      "title": "Create Upsell Strategy",
+      "status": "completed",
+      "notes": "How to sell Whop course to these buyers - email sequences, pricing, conversion principles"
+    }
+  ],
+  "deliverables": [
+    {
+      "file": "content/course-outline.md",
+      "description": "Full 5-module course outline"
+    },
+    {
+      "file": "content/module-1.md",
+      "description": "Video script - What is AI? (8-10 min)"
+    },
+    {
+      "file": "content/module-2.md",
+      "description": "Video script - ChatGPT Basics (12-15 min) with screenshot descriptions"
+    },
+    {
+      "file": "materials/marketing-copy.md",
+      "description": "Ads, email templates, testimonials"
+    },
+    {
+      "file": "materials/landing-page.md",
+      "description": "Landing page design concept"
+    },
+    {
+      "file": "materials/upsell-strategy.md",
+      "description": "Whop course upsell strategy"
+    }
+  ],
+  "created": "2026-02-13",
+  "audience": "55+ beginners, non-tech-savvy",
+  "key_principles": [
+    "Plain English - no tech jargon",
+    "Warm, encouraging tone",
+    "Step-by-step with visual descriptions",
+    "Emphasize safety and privacy",
+    "Assume email/web knowledge only"
+  ]
+}

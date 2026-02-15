@@ -1,0 +1,150 @@
+{
+  "providers": {
+    "minimax": {
+      "baseUrl": "https://api.minimax.io/anthropic",
+      "api": "anthropic-messages",
+      "models": [
+        {
+          "id": "MiniMax-M2.5",
+          "name": "MiniMax M2.5",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 15,
+            "output": 60,
+            "cacheRead": 2,
+            "cacheWrite": 10
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 16384
+        },
+        {
+          "id": "MiniMax-M2.5-highspeed",
+          "name": "MiniMax M2.5 Highspeed",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 8,
+            "output": 30,
+            "cacheRead": 1,
+            "cacheWrite": 5
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 16384
+        },
+        {
+          "id": "MiniMax-M2.1",
+          "name": "MiniMax M2.1",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 15,
+            "output": 60,
+            "cacheRead": 2,
+            "cacheWrite": 10
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192
+        },
+        {
+          "id": "MiniMax-M2.1-lightning",
+          "name": "MiniMax M2.1 Lightning",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 15,
+            "output": 60,
+            "cacheRead": 2,
+            "cacheWrite": 10
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192
+        },
+        {
+          "id": "MiniMax-VL-01",
+          "name": "MiniMax VL 01",
+          "reasoning": false,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 15,
+            "output": 60,
+            "cacheRead": 2,
+            "cacheWrite": 10
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192
+        },
+        {
+          "id": "MiniMax-M2.5-Lightning",
+          "name": "MiniMax M2.5 Lightning",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 15,
+            "output": 60,
+            "cacheRead": 2,
+            "cacheWrite": 10
+          },
+          "contextWindow": 200000,
+          "maxTokens": 8192
+        }
+      ],
+      "apiKey": "sk-cp-00VR9reedJIiuGiTmTgYZqcdX33ydvbJUEPm5_AaIVhy_EJoypYF1PNSPB1iDrw0o_FZqPidS0Gfh09iUUA6fLlFX-9DjJM4EXkXWSPaXpCFjuwy_9gVvZE"
+    },
+    "openrouter": {
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "anthropic/claude-3-haiku-20240307",
+          "name": "Claude 3 Haiku (OpenRouter)",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0.25,
+            "output": 1.25,
+            "cacheRead": 0.03,
+            "cacheWrite": 0.3
+          },
+          "contextWindow": 200000,
+          "maxTokens": 4096
+        },
+        {
+          "id": "google/gemini-2.0-flash-001",
+          "name": "Gemini 2.0 Flash (OpenRouter)",
+          "reasoning": false,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0.1,
+            "output": 0.4,
+            "cacheRead": 0.025,
+            "cacheWrite": 0.1
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 8192
+        }
+      ],
+      "apiKey": "OPENROUTER_API_KEY"
+    }
+  }
+}

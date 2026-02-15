@@ -1,0 +1,437 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.12",
+    "lastTouchedAt": "2026-02-15T11:25:29.869Z"
+  },
+  "env": {
+    "OPENROUTER_API_KEY": "__OPENROUTER_REDACTED__-v1-f314862e9b2d2c1648cda7e07f700bc343e767c7e25cb7a23006aa5e4745c903"
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-14T11:12:31.788Z",
+    "lastRunVersion": "2026.2.12",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "auth": {
+    "profiles": {
+      "minimax:default": {
+        "provider": "minimax",
+        "mode": "api_key"
+      },
+      "openrouter:default": {
+        "provider": "openrouter",
+        "mode": "api_key"
+      }
+    }
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "minimax": {
+        "baseUrl": "https://api.minimax.io/anthropic",
+        "api": "anthropic-messages",
+        "models": [
+          {
+            "id": "MiniMax-M2.5",
+            "name": "MiniMax M2.5",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 15,
+              "output": 60,
+              "cacheRead": 2,
+              "cacheWrite": 10
+            },
+            "contextWindow": 1000000,
+            "maxTokens": 16384
+          },
+          {
+            "id": "MiniMax-M2.5-highspeed",
+            "name": "MiniMax M2.5 Highspeed",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 8,
+              "output": 30,
+              "cacheRead": 1,
+              "cacheWrite": 5
+            },
+            "contextWindow": 1000000,
+            "maxTokens": 16384
+          },
+          {
+            "id": "MiniMax-M2.1",
+            "name": "MiniMax M2.1",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 15,
+              "output": 60,
+              "cacheRead": 2,
+              "cacheWrite": 10
+            },
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "anthropic/claude-3-haiku-20240307",
+            "name": "Claude 3 Haiku (OpenRouter)",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0.25,
+              "output": 1.25,
+              "cacheRead": 0.03,
+              "cacheWrite": 0.3
+            },
+            "contextWindow": 200000,
+            "maxTokens": 4096
+          },
+          {
+            "id": "google/gemini-2.0-flash-001",
+            "name": "Gemini 2.0 Flash (OpenRouter)",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0.1,
+              "output": 0.4,
+              "cacheRead": 0.025,
+              "cacheWrite": 0.1
+            },
+            "contextWindow": 1000000,
+            "maxTokens": 8192
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "minimax/MiniMax-M2.5"
+      },
+      "models": {
+        "minimax/MiniMax-M2.5": {
+          "alias": "Minimax"
+        },
+        "minimax/MiniMax-M2.5-highspeed": {
+          "alias": "MinimaxFast"
+        },
+        "minimax/MiniMax-M2.1": {
+          "alias": "MinimaxLite"
+        },
+        "openrouter/anthropic/claude-3-haiku-20240307": {
+          "alias": "Haiku"
+        },
+        "openrouter/google/gemini-2.0-flash-001": {
+          "alias": "GeminiFlash"
+        }
+      },
+      "workspace": "/home/ubuntu/.openclaw/workspace",
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "heartbeat": {
+        "every": "30m",
+        "model": "openrouter/google/gemini-2.0-flash-001",
+        "target": "last"
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    },
+    "list": [
+      {
+        "id": "main",
+        "default": true,
+        "name": "Main Coordinator",
+        "identity": {
+          "name": "Coordinator",
+          "theme": "You are a project coordinator. Route work to builder/qa/deploy agents. Track progress and report status. Help brainstorm ideas and plan tasks.",
+          "emoji": "🧠"
+        },
+        "subagents": {
+          "allowAgents": [
+            "*"
+          ]
+        },
+        "tools": {
+          "profile": "full",
+          "elevated": {
+            "enabled": true
+          }
+        }
+      },
+      {
+        "id": "builder",
+        "name": "Builder Agent",
+        "workspace": "/home/ubuntu/agents/builder",
+        "agentDir": "/home/ubuntu/.openclaw/agents/builder/agent",
+        "model": "minimax/MiniMax-M2.5",
+        "identity": {
+          "name": "Builder",
+          "theme": "You are a senior full-stack developer. Build production-ready Next.js SaaS applications. Write clean, tested, deployable code. Use TypeScript, Tailwind CSS, Prisma, and modern best practices.",
+          "emoji": "🔨"
+        },
+        "subagents": {
+          "allowAgents": [
+            "*"
+          ]
+        },
+        "tools": {
+          "profile": "full",
+          "elevated": {
+            "enabled": true
+          }
+        }
+      },
+      {
+        "id": "qa",
+        "name": "QA Agent",
+        "workspace": "/home/ubuntu/agents/qa",
+        "agentDir": "/home/ubuntu/.openclaw/agents/qa/agent",
+        "model": "minimax/MiniMax-M2.5",
+        "identity": {
+          "name": "QA Engineer",
+          "theme": "You are a QA engineer. Review code for bugs, security issues, and best practices. Write and run tests. Ensure code quality before deployment. Be thorough and critical.",
+          "emoji": "🧪"
+        },
+        "subagents": {
+          "allowAgents": [
+            "*"
+          ]
+        },
+        "tools": {
+          "profile": "full",
+          "elevated": {
+            "enabled": true
+          }
+        }
+      },
+      {
+        "id": "deploy",
+        "name": "Deploy Agent",
+        "workspace": "/home/ubuntu/agents/deploy",
+        "agentDir": "/home/ubuntu/.openclaw/agents/deploy/agent",
+        "model": "minimax/MiniMax-M2.5",
+        "identity": {
+          "name": "DevOps",
+          "theme": "You are a DevOps engineer. Handle deployments to Vercel/AWS. Set up CI/CD pipelines. Configure domains, environment variables, and monitoring. Ensure reliable production deployments.",
+          "emoji": "🚀"
+        },
+        "subagents": {
+          "allowAgents": [
+            "*"
+          ]
+        },
+        "tools": {
+          "profile": "full",
+          "elevated": {
+            "enabled": true
+          }
+        }
+      }
+    ]
+  },
+  "tools": {
+    "agentToAgent": {
+      "enabled": true,
+      "allow": [
+        "main",
+        "builder",
+        "qa",
+        "deploy"
+      ]
+    },
+    "elevated": {
+      "enabled": true
+    },
+    "exec": {
+      "security": "full",
+      "backgroundMs": 10000,
+      "timeoutSec": 3600,
+      "cleanupMs": 3600000,
+      "notifyOnExit": true
+    }
+  },
+  "bindings": [
+    {
+      "agentId": "main",
+      "match": {
+        "channel": "discord",
+        "peer": {
+          "kind": "channel",
+          "id": "1471824830872686757"
+        }
+      }
+    },
+    {
+      "agentId": "builder",
+      "match": {
+        "channel": "discord",
+        "peer": {
+          "kind": "channel",
+          "id": "1471824870840078379"
+        }
+      }
+    },
+    {
+      "agentId": "qa",
+      "match": {
+        "channel": "discord",
+        "peer": {
+          "kind": "channel",
+          "id": "1471824888913199105"
+        }
+      }
+    },
+    {
+      "agentId": "deploy",
+      "match": {
+        "channel": "discord",
+        "peer": {
+          "kind": "channel",
+          "id": "1471824908735742003"
+        }
+      }
+    },
+    {
+      "agentId": "main",
+      "match": {
+        "channel": "discord",
+        "peer": {
+          "kind": "channel",
+          "id": "1471824928255901807"
+        }
+      }
+    },
+    {
+      "agentId": "main",
+      "match": {
+        "channel": "discord",
+        "peer": {
+          "kind": "channel",
+          "id": "1471824941925142589"
+        }
+      }
+    },
+    {
+      "agentId": "main",
+      "match": {
+        "channel": "discord",
+        "peer": {
+          "kind": "direct",
+          "id": "harman666666"
+        }
+      }
+    }
+  ],
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "bash": true,
+    "config": true,
+    "restart": true
+  },
+  "session": {
+    "agentToAgent": {
+      "maxPingPongTurns": 5
+    }
+  },
+  "cron": {
+    "enabled": true,
+    "maxConcurrentRuns": 2
+  },
+  "channels": {
+    "discord": {
+      "enabled": true,
+      "token": "__DISCORD_REDACTED__.O2PjBSRiJ-ydgnk-teCcm47SW0FIC4mpsA3ER0",
+      "groupPolicy": "allowlist",
+      "dm": {
+        "enabled": true,
+        "policy": "pairing",
+        "allowFrom": [
+          "harman666666"
+        ]
+      },
+      "guilds": {
+        "1471824830260183176": {
+          "requireMention": false,
+          "channels": {
+            "general": {
+              "allow": true
+            },
+            "builds": {
+              "allow": true
+            },
+            "qa": {
+              "allow": true
+            },
+            "deploys": {
+              "allow": true
+            },
+            "tasks": {
+              "allow": true
+            },
+            "ideas": {
+              "allow": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "__GATEWAY_REDACTED__"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    }
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "npm"
+    },
+    "entries": {
+      "notion": {
+        "apiKey": "ntn_W69384739655AWt13s81PE7xw11g5iXGLK8e7km54AC0Xe"
+      }
+    }
+  },
+  "plugins": {
+    "entries": {
+      "discord": {
+        "enabled": true
+      }
+    }
+  }
+}
