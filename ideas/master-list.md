@@ -72,6 +72,14 @@
 
 ---
 
+## 📋 Ideas from 2026-02-15 (Hourly Research)
+
+27. **VoiceTwin** - AI voice consent manager for companies using AI synthesis
+28. **DevEnv Cloud Bridge** - Cloud Windows dev environments
+29. **LiveCollect** - AR live shopping companion app
+
+---
+
 ## ⚠️ REMINDER
 
 Before posting to #ideas:

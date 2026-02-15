@@ -54,6 +54,28 @@
 
 ---
 
+## CRITICAL: NEVER USE LOCAL FILES FOR TASKS
+
+### Task Source of Truth
+- **Asana IS the source of truth** - Always query Asana API directly
+- NEVER read local tasks/QUEUE.md or tasks/board.json for task status
+- NEVER post numbers from local files - only from real Asana queries
+- If you need task info, call the Asana API directly
+
+### Asana Token
+```
+TOKEN="2/1213287152205467/1213287139030185:70bce90f612d0ea072617e4dc8686bcd"
+```
+
+### Quick Query
+```bash
+for pid in 1213277068607518 1213277278397665 1213287173640360 1213287696255155; do
+  curl -s -H "Authorization: Bearer $TOKEN" "https://app.asana.com/api/1.0/projects/$pid/tasks?completed=false" | jq '.data | length'
+done
+```
+
+---
+
 ## CRITICAL: How I Work With Harry
 
 ### When Blocked (MUST DO)
@@ -68,8 +90,9 @@
 - Update with actual progress, not fake numbers
 
 ### Before Posting Updates
-- Actually check Asana first
+- Actually check Asana first (via API, not local files)
 - If no real work → say that, don't fabricate
+- NEVER POST FAKE NUMBERS
 
 ---
 

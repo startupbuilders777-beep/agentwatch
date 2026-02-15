@@ -181,10 +181,36 @@ DISCOVER → TRIAGE → ASANA → RALPH LOOP → COMPLETE
 
 ---
 
+## CRITICAL RULES
+
+### NEVER USE LOCAL FILES FOR TASKS
+- **Asana IS the source of truth** - Always query Asana API directly
+- NEVER read local tasks/QUEUE.md or tasks/board.json for task status
+- NEVER post numbers from local files - only from real Asana queries
+- If you need task info, call the Asana API: `curl -H "Authorization: Bearer $TOKEN" "https://app.asana.com/api/1.0/projects/$GID/tasks?completed=false"`
+
+### Token
+```
+TOKEN="2/1213287152205467/1213287139030185:70bce90f612d0ea072617e4dc8686bcd"
+```
+
+### Quick Asana Query
+```bash
+# Get incomplete tasks per project
+for pid in 1213277068607518 1213277278397665 1213287173636195 1213287173640360 1213287696255155; do
+  incomplete=$(curl -s -H "Authorization: Bearer $TOKEN" "https://app.asana.com/api/1.0/projects/$pid/tasks?completed=false" | jq '.data | length')
+  echo "Project $pid: $incomplete incomplete"
+done
+```
+
+---
+
 ## Anti-Patterns
 
 ❌ **HEARTBEAT_OK** — Never just say ok, do work
 ❌ **Ignore Asana** — Task queue IS Asana
+❌ **Local files for tasks** — NEVER use tasks/QUEUE.md or board.json
+❌ **Fake numbers** — Only post real data from Asana API
 ❌ **Skip scouting** — Always look for opportunities
 ❌ **Skip PM duties** — Keep PRD/tasks in sync
 ❌ **Leave stale tasks** — Update or complete
