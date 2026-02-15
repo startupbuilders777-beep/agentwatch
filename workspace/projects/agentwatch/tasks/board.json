@@ -1,0 +1,76 @@
+{
+  "project": "AgentWatch",
+  "description": "AI Agent Monitoring Platform (Datadog for AI agents)",
+  "tasks": [
+    {
+      "id": "WATCH-001",
+      "title": "Project Setup - Initialize Next.js with TypeScript and dependencies",
+      "status": "completed",
+      "priority": "high",
+      "description": "Set up Next.js project with TypeScript, Tailwind, Prisma, and required dependencies"
+    },
+    {
+      "id": "WATCH-002",
+      "title": "Database Schema - Create Prisma models for AgentWatch",
+      "status": "completed",
+      "priority": "high",
+      "description": "Create Prisma schema with Agent, Task, UsageRecord, ErrorLog, AuditLog models"
+    },
+    {
+      "id": "WATCH-003",
+      "title": "Database Setup - PostgreSQL connection and migrations",
+      "status": "completed",
+      "priority": "high",
+      "description": "Configure PostgreSQL connection and run migrations (Prisma client generated)"
+    },
+    {
+      "id": "WATCH-004",
+      "title": "MCP Server - Create MCP server route for metrics ingestion",
+      "status": "completed",
+      "priority": "high",
+      "description": "Build MCP server endpoint to receive metrics from agents"
+    },
+    {
+      "id": "WATCH-005",
+      "title": "Webhook API - Create webhook endpoint for generic ingestion",
+      "status": "completed",
+      "priority": "high",
+      "description": "Build webhook endpoint to receive events from external systems"
+    },
+    {
+      "id": "WATCH-006",
+      "title": "Metrics API - Create API routes for metrics CRUD operations",
+      "status": "completed",
+      "priority": "high",
+      "description": "Build REST API for agents, tasks, usage records, and errors"
+    },
+    {
+      "id": "WATCH-007",
+      "title": "Dashboard UI - Build main dashboard with stats cards",
+      "status": "completed",
+      "priority": "high",
+      "description": "Create dashboard with total agents, token usage, cost, error count"
+    },
+    {
+      "id": "WATCH-008",
+      "title": "Activity Feed - Build recent activity feed component",
+      "status": "completed",
+      "priority": "medium",
+      "description": "Create real-time activity feed showing recent agent actions"
+    },
+    {
+      "id": "WATCH-009",
+      "title": "Budget Alerts System - Create budget threshold and alerting",
+      "status": "completed",
+      "priority": "medium",
+      "description": "Implement budget tracking and alert notifications when exceeded"
+    },
+    {
+      "id": "WATCH-010",
+      "title": "Agent Detail Page - Build individual agent monitoring page",
+      "status": "completed",
+      "priority": "medium",
+      "description": "Create detailed view for single agent with stats and activity"
+    }
+  ]
+}
