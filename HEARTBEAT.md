@@ -168,6 +168,11 @@ DISCOVER → TRIAGE → ASANA → RALPH LOOP → COMPLETE
 
 **NEVER:** Fake progress, fabricate numbers, or pretend you're working when blocked
 
+-- **Ralph Loop:** Pick task → Break → Execute → Validate → Complete
+-- **Heartbeat:** Every 30 min
+-- **Discovery:** Scout opportunities → Create Asana tasks → Execute
+-- **GitHub Sync:** Every heartbeat
+
 ---
 
 ## Tools Available
