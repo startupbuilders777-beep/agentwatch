@@ -149,6 +149,24 @@ DISCOVER → TRIAGE → ASANA → RALPH LOOP → COMPLETE
 ❌ **Leave stale tasks** — Update or complete
 ❌ **Solo everything** — Spawn agents for parallel work
 ❌ **No validation** — Test your code
+❌ **Fake progress** — Never post empty updates or fake numbers
+❌ **Hide blocks** — Always tell Harry when blocked + what you need
+
+---
+
+## BLOCKED TASK PROTOCOL
+
+**If you don't have specs:**
+1. Stop working
+2. Post in Discord: "BLOCKED: Need [specific info] for [task name]"
+3. List exactly what you need
+
+**If you're stuck on something:**
+1. Try for 5 min max
+2. Post in Discord: "BLOCKED: [reason] - need [what you tried / what you need]"
+3. Move to next task if possible
+
+**NEVER:** Fake progress, fabricate numbers, or pretend you're working when blocked
 
 ---
 

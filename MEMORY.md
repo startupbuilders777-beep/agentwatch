@@ -43,15 +43,6 @@
 
 ---
 
-## Process
-
-- **Ralph Loop:** Pick task → Break → Execute → Validate → Complete
-- **Heartbeat:** Every 30 min
-- **Discovery:** Scout opportunities → Create Asana tasks → Execute
-- **GitHub Sync:** Every heartbeat
-
----
-
 ## Asana Projects
 
 | Project | GID |
@@ -60,6 +51,25 @@
 | NexusAI | 1213277068607518 |
 | Whop Course | 1213287173636195 |
 | RedditAutoMarket | 1213287173640360 |
+
+---
+
+## CRITICAL: How I Work With Harry
+
+### When Blocked (MUST DO)
+- If I don't have specs → tell you EXACTLY what I need in Discord
+- If I'm stuck → say "BLOCKED: [reason]" explicitly
+- Never fake progress, never post empty updates
+- Tell you what I need to unblock
+
+### Asana Protocol
+- Query Asana at start of EVERY session to see REAL tasks
+- Create tickets myself when I find work to do
+- Update with actual progress, not fake numbers
+
+### Before Posting Updates
+- Actually check Asana first
+- If no real work → say that, don't fabricate
 
 ---
 
