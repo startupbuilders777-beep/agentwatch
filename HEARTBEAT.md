@@ -110,6 +110,17 @@ curl -s -X POST -H "Authorization: Bearer $ASANA_TOKEN" \
 - Post update to #general if significant progress
 - Log to memory if new learnings
 - If task incomplete, ensure Asana reflects current state
+- **Commit and push to GitHub** - keep repo in sync
+
+### GitHub Sync (Auto-commit)
+```bash
+cd /home/ubuntu/.openclaw/workspace
+git add -A
+git commit -m "Heartbeat sync: $(date)"
+git push origin main
+```
+
+**Repo:** https://github.com/startupbuilders777-beep/openclaw-setup
 
 ---
 
