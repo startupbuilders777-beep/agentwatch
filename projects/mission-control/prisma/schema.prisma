@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Agent {
+  id          String    @id @default(cuid())
+  name        String
+  status      String    @default("idle")
+  currentTask String?
+  lastActive  DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  activities  Activity[]
+  costs       Cost[]
+}
+
+model Activity {
+  id        String   @id @default(cuid())
+  agentId   String
+  agent     Agent    @relation(fields: [agentId], references: [id])
+  type      String
+  message   String
+  timestamp DateTime @default(now())
+  metadata  String?
+}
+
+model Cost {
+  id         String   @id @default(cuid())
+  agentId    String
+  agent      Agent    @relation(fields: [agentId], references: [id])
+  tokens     Int      @default(0)
+  durationMs Int      @default(0)
+  cost       Float    @default(0)
+  date       DateTime @default(now())
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  agentId   String
+  startedAt DateTime @default(now())
+  endedAt   DateTime?
+  status    String   @default("running")
+}
