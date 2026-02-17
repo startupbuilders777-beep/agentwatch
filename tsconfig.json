@@ -18,7 +18,12 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@/components/*": ["./components/*", "./projects/nexus-ai/components/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/types/*": ["./types/*", "./projects/nexus-ai/types/*"],
+      "./projects/nexus-ai/lib/prisma": ["./projects/nexus-ai/lib/prisma.ts"],
+      "./projects/nexus-ai/lib/utils": ["./projects/nexus-ai/lib/utils.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

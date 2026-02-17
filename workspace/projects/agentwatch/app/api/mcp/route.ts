@@ -33,8 +33,26 @@ export async function POST(request: NextRequest) {
     })
 
     if (!agent) {
+      // Get or create default user
+      let user = await prisma.user.findFirst({
+        where: { role: 'ADMIN' },
+      })
+      
+      if (!user) {
+        user = await prisma.user.create({
+          data: {
+            email: 'admin@agentwatch.local',
+            name: 'Admin',
+            role: 'ADMIN',
+          },
+        })
+      }
+      
       agent = await prisma.agent.create({
-        data: { name: data.agent },
+        data: { 
+          name: data.agent,
+          userId: user.id,
+        },
       })
     }
 
@@ -116,6 +134,7 @@ export async function POST(request: NextRequest) {
       await prisma.auditLog.create({
         data: {
           agentId: agent.id,
+          userId: agent.userId,
           action: data.action,
           details: (data.details || {}) as any,
         },

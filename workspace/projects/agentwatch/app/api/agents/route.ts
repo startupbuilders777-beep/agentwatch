@@ -2,12 +2,32 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
 
+// Helper to get or create default user
+async function getDefaultUserId(): Promise<string> {
+  let user = await prisma.user.findFirst({
+    where: { role: 'ADMIN' },
+  })
+  
+  if (!user) {
+    user = await prisma.user.create({
+      data: {
+        email: 'admin@agentwatch.local',
+        name: 'Admin',
+        role: 'ADMIN',
+      },
+    })
+  }
+  
+  return user.id
+}
+
 // Agent creation schema
 const agentSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
   dailyBudget: z.number().optional(),
   monthlyBudget: z.number().optional(),
+  userId: z.string().optional(),
 })
 
 // GET /api/agents - List all agents
@@ -61,6 +81,7 @@ export async function POST(request: NextRequest) {
         description: data.description,
         dailyBudget: data.dailyBudget,
         monthlyBudget: data.monthlyBudget,
+        userId: data.userId || (await getDefaultUserId()),
       },
     })
 

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAuthSession } from "@/lib/auth";
-import prisma from "@/lib/prisma";
+import { getAuthSession } from "../../../lib/auth";
+import prisma from "../../../lib/prisma";
 import { v4 as uuidv4 } from "uuid";
 import { writeFile, unlink } from "fs/promises";
 import path from "path";

@@ -10,6 +10,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// User model - represents a user who owns/manage agents
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  name        String?
+  role        UserRole @default(USER)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  agents      Agent[]
+  auditLogs   AuditLog[]
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
 // Agent model - represents an AI agent being monitored
 model Agent {
   id          String   @id @default(cuid())
@@ -20,6 +38,10 @@ model Agent {
   monthlyBudget Float? // Monthly budget in dollars
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  // Owner relation
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   tasks        Task[]
   usageRecords UsageRecord[]
@@ -130,9 +152,14 @@ model AuditLog {
   userAgent   String?
   createdAt   DateTime @default(now())
 
+  // User relation
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@index([agentId])
   @@index([action])
   @@index([createdAt])
+  @@index([userId])
 }
 
 // BudgetAlert model - tracks budget thresholds and alerts

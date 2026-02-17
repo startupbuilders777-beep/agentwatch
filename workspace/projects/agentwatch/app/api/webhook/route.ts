@@ -19,20 +19,49 @@ export async function POST(request: NextRequest) {
 
     // Resolve agent
     let agentId = event.agentId
+    let userId: string | undefined
     if (!agentId && event.agent) {
       let agent = await prisma.agent.findUnique({
         where: { name: event.agent },
       })
       if (!agent) {
+        // Get or create default user
+        let user = await prisma.user.findFirst({
+          where: { role: 'ADMIN' },
+        })
+        
+        if (!user) {
+          user = await prisma.user.create({
+            data: {
+              email: 'admin@agentwatch.local',
+              name: 'Admin',
+              role: 'ADMIN',
+            },
+          })
+        }
+        
         agent = await prisma.agent.create({
-          data: { name: event.agent },
+          data: { 
+            name: event.agent,
+            userId: user.id,
+          },
         })
       }
       agentId = agent.id
+      userId = agent.userId
+    } else if (agentId) {
+      const agent = await prisma.agent.findUnique({ where: { id: agentId } })
+      userId = agent?.userId
     }
 
     if (!agentId) {
       return NextResponse.json({ error: 'Agent not found or provided' }, { status: 400 })
+    }
+
+    // Get default userId if not set
+    if (!userId) {
+      const user = await prisma.user.findFirst({ where: { role: 'ADMIN' } })
+      userId = user?.id
     }
 
     const eventType = event.event
@@ -155,6 +184,7 @@ export async function POST(request: NextRequest) {
         await prisma.auditLog.create({
           data: {
             agentId,
+            userId: userId!,
             action: (eventData.action as string) || eventType,
             details: eventData as any,
           },
@@ -166,6 +196,7 @@ export async function POST(request: NextRequest) {
         await prisma.auditLog.create({
           data: {
             agentId,
+            userId: userId!,
             action: eventType,
             details: eventData as any,
           },
