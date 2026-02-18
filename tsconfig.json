@@ -19,13 +19,11 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@/components/*": ["./components/*", "./projects/nexus-ai/components/*"],
+      "@/components/*": ["./components/*"],
       "@/lib/*": ["./lib/*"],
-      "@/types/*": ["./types/*", "./projects/nexus-ai/types/*"],
-      "./projects/nexus-ai/lib/prisma": ["./projects/nexus-ai/lib/prisma.ts"],
-      "./projects/nexus-ai/lib/utils": ["./projects/nexus-ai/lib/utils.ts"]
+      "@/types/*": ["./types/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/**/*.ts", "app/**/*.tsx", "components/**/*.ts", "components/**/*.tsx", "lib/**/*.ts"],
+  "exclude": ["node_modules", "projects", "skills", "workspace", "docs", "tasks", "agents", "ideas", "ebook", "course", "config", "process", "memory", ".github", ".learnings", ".clawhub", "*.md", "sample-apps", "openclaw.json"]
 }
